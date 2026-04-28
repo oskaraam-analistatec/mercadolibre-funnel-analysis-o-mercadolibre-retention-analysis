@@ -258,13 +258,6 @@ python scripts/export_results.py
 
 ---
 
-## 📁 Archivos Incluidos
-
-- `mercadolibre_funnel_retention_results.csv` - Datos completos del análisis
-- `RESULTADOS_README.md` - Este archivo (resumen ejecutivo)
-
----
-
 ## 🔗 Enlaces Relacionados
 
 - [README Principal](../README.md)
@@ -280,6 +273,9 @@ python scripts/export_results.py
 - **Período analizado:** 01/01/2025 - 08/31/2025
 - **Analista:** Oskar Arvizu
 - **Estado:** Completo ✅
+
+---
+
 ## 📈 Visualizaciones
 Los resultados se pueden visualizar con:
 - **Excel/Google Sheets** - Para tablas dinámicas rápidas
