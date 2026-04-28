@@ -1,0 +1,30 @@
+,,,,
+,,Context,Hallazgo,Implicación
+,"Entre el [01/01/2025] y el [08/31/2025], ¿cuál es la tasa de conversión entre cada etapa clave del embudo.
+
+🔹 ¿En qué paso se observa la mayor caída porcentual de usuarios?
+🔹 ¿Cómo varía esta pérdida por país (country)?","La mayor caída porcentual del embudo ocurre entre Select Item y Add to Cart, tanto en el análisis general como en la mayoría de los países.
+Select Item        76.90
+Add to Cart        11.01
+Begin Checkout        4.00
+Add Shipping Info        2.42
+Add Payment Info        2.09
+Purchase        1.25","Aunque el porcentaje de usuarios que selecciona un producto es relativamente alto en todos los países (71%–85%), la conversión hacia Add to Cart disminuye significativamente.","Esto sugiere que la principal fricción ocurre en la decisión inicial de agregar un producto al carrito, lo que podría estar relacionado con: precios o costos, informacion del producto y confianza del usuario, ademas de la experiencia en la pagina."
+,"¿Qué tan bien retenemos a los usuarios a lo largo del tiempo?
+
+🔹 Para los usuarios que se registraron entre el [01/01/2025] y el [06/01/2025], ¿cuál es la tasa de retención en D7, D14, D21, D28?
+🔹 *¿Cómo se comporta la retención agrupados por país (`country`)?
+","La retención inicial es alta en D7 (~85–87%), pero disminuye de forma significativa con el tiempo, llegando aproximadamente a ~25% en D21 y cerca de 2–3% en D28, lo que indica una fuerte pérdida de usuarios después de las primeras semanas.","Al analizar las cohortes de usuarios registrados entre enero y junio de 2025, se observa un patrón consistente de disminución en la retención conforme avanzan los días.                                                                                                                       México mantiene una retención relativamente alta hasta D21 (25.5%) y alcanza una de las mejores tasas en D28 (3.1%).
+
+Perú también presenta un buen desempeño en el largo plazo, con 3.2% en D28, la más alta entre los países analizados.
+
+Brasil muestra una fuerte retención inicial, pero desciende a 2.5% en D28.
+
+En cambio, Argentina (1.8%), Chile (1.7%) y Colombia (1.6%) presentan niveles más bajos de retención al final del periodo analizado.","El producto logra retener bien a los usuarios durante la primera semana, pero enfrenta dificultades para mantener su actividad en el largo plazo. Esto sugiere la necesidad de estrategias como: campanas, notificaciones, mejorar las propuestas de valor a lo largo del tiempo."
+,,,,
+,,,,
+,,,,
+,Reflexión personal,,,
+,"- ¿Qué etapa mejorarías primero?
+","Las etapas iniciales del embudo representan el principal punto de abandono, ya que la mayor caída porcentual ocurre entre la visualización de artículos en la página y el evento de agregar productos al carrito. Esto sugiere que existe una brecha entre el interés inicial del usuario y su decisión de avanzar hacia la compra.",,
+,- ¿Qué aprendiste sobre el comportamiento del usuario?,"El usuario tiende a abandonar las etapas iniciales, debido a la poca optimizacion que existe en la pagina ecommerce, como tambien a lo largo del tiempo, debido a la falta de estrategias para la retencion del mismo cliente.",,
