@@ -1,2 +1,149 @@
-# mercadolibre-funnel-analysis-o-mercadolibre-retention-analysis
-Análisis de embudo de compra y retención de usuarios en MercadoLibre. Identifica puntos de fricción en el journey del cliente e implementa recomendaciones basadas en datos para optimizar conversión y retención.
+## 📊 Descripción del Proyecto
+Análisis completo del viaje del usuario en MercadoLibre utilizando **SQL avanzado** para 
+identificar puntos de fricción en el embudo de compra y patrones de retención de usuarios 
+mediante análisis de cohortes.
+
+## 🎯 Objetivos
+- Mapear el journey completo del usuario (first visit → purchase)
+- Identificar dónde ocurren los abandonos principales
+- Analizar retención por cohortes mensuales (D7, D14, D21, D28)
+- Segmentar por país para identificar patrones regionales
+
+## 🔑 Hallazgos Principales
+
+### Embudo de Compra
+| Etapa | % Conversión | Usuarios |
+|-------|------------|----------|
+| Primera Visita | 100% | 50,000 |
+| Seleccionar Artículo | 76.9% | 38,450 |
+| Agregar al Carrito | 11.0% | 4,230 |
+| Compra Completada | 2-3% | 85-127 |
+
+### Retención por Día
+- **D7:** ~86% de retención
+- **D14:** ~15-20%
+- **D21:** ~5-10%
+- **D28:** ~2-3%
+
+### Insights por País
+- ✅ **Perú y México:** Retención más estable
+- ⚠️ **Argentina:** Mayor volatilidad en retención
+
+## 🛠️ Tecnologías Utilizadas
+- **SQL:** CTEs (Common Table Expressions), Window Functions, Análisis de Cohortes
+- **Base de Datos:** PostgreSQL / MySQL / SQL Server
+- **Exportación:** Python + Pandas para CSV
+
+## 📁 Estructura del Repositorio
+
+### `/queries`
+Consultas SQL organizadas por propósito:
+- `01_data_exploration.sql` - Exploración de tablas y datos disponibles
+- `02_funnel_analysis.sql` - Cálculo de embudo por etapa
+- `03_retention_cohorts.sql` - Análisis de retención por cohortes
+- `04_final_insights.sql` - Consultas de insights finales
+
+### `/results`
+Resultados exportados como CSV para análisis posterior:
+- `funnel_metrics.csv` - Métricas del embudo por etapa
+- `retention_data.csv` - Datos de retención por cohorte y país
+
+### `/documentation`
+Documentación técnica y hallazgos:
+- `data_dictionary.md` - Descripción de tablas y columnas usadas
+- `methodology.md` - Explicación del enfoque analítico
+- `findings_report.md` - Reporte ejecutivo de hallazgos
+
+## 🔍 Metodología
+
+### Paso 1: Exploración de Datos
+```sql
+-- Ver estructura de tablas
+SELECT * FROM users LIMIT 10;
+SELECT * FROM events LIMIT 10;
+```
+
+### Paso 2: Construir el Embudo
+```sql
+WITH funnel_stages AS (
+  SELECT 
+    user_id,
+    MAX(CASE WHEN event_type = 'first_visit' THEN 1 ELSE 0 END) as visited,
+    MAX(CASE WHEN event_type = 'select_item' THEN 1 ELSE 0 END) as browsed,
+    MAX(CASE WHEN event_type = 'add_to_cart' THEN 1 ELSE 0 END) as carted,
+    MAX(CASE WHEN event_type = 'purchase' THEN 1 ELSE 0 END) as purchased
+  FROM events
+  WHERE event_date >= '2025-01-01'
+  GROUP BY user_id
+)
+SELECT 
+  COUNT(*) as total_users,
+  SUM(visited) as visitors,
+  SUM(browsed) as browsers,
+  SUM(carted) as cart_users,
+  SUM(purchased) as purchasers
+FROM funnel_stages;
+```
+
+### Paso 3: Análisis de Retención por Cohortes
+```sql
+WITH cohorts AS (
+  SELECT 
+    user_id,
+    DATE_TRUNC('month', first_purchase_date)::DATE as cohort_month,
+    EXTRACT(DAY FROM current_date - first_purchase_date) as days_since_first_purchase
+  FROM purchases
+)
+SELECT 
+  cohort_month,
+  days_since_first_purchase,
+  COUNT(DISTINCT user_id) as returning_users
+FROM cohorts
+GROUP BY cohort_month, days_since_first_purchase
+ORDER BY cohort_month, days_since_first_purchase;
+```
+
+## 📊 Cómo Ejecutar los Análisis
+
+### Opción 1: Ejecutar directamente en tu BD
+```bash
+# Ejecutar cada archivo SQL en orden
+1. psql -U username -d database < queries/01_data_exploration.sql
+2. psql -U username -d database < queries/02_funnel_analysis.sql
+3. psql -U username -d database < queries/03_retention_cohorts.sql
+```
+
+### Opción 2: Usar el script Python para exportar resultados
+```bash
+python scripts/export_results.py
+```
+
+## 📈 Visualizaciones
+Los resultados se pueden visualizar con:
+- **Excel/Google Sheets** - Para tablas dinámicas rápidas
+- **Power BI / Tableau** - Para dashboards interactivos
+- **Python (Matplotlib/Seaborn)** - Para gráficos personalizados
+
+Ver gráficos en `/results/visualizations/`
+
+## 💡 Recomendaciones Accionables
+
+1. **Reducir Fricción en Carrito**
+   - Entre Browse (76.9%) y Add to Cart (11%) hay una caída crítica
+   - Revisar UX del carrito, costo de envío, opciones de pago
+
+2. **Mejorar Experiencia Post-Compra**
+   - Caída dramática de 86% (D7) a 2-3% (D28)
+   - Implementar estrategias de retención: newsletters, ofertas personalizadas
+
+3. **Enfoque Regional**
+   - Replicar prácticas de Perú/México en Argentina
+   - Considerar factores culturales/económicos regionales
+
+## 📧 Contacto
+- Email: oskaraam@gmail.com
+- LinkedIn: [oskarivizu](https://linkedin.com/in/oskarivizu)
+- GitHub: [oskaraam-analistatec](https://github.com/oskaraam-analistatec)
+
+## 📄 Licencia
+MIT License - Ver archivo LICENSE para detalles
